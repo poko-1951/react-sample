@@ -1,12 +1,40 @@
-import React from "react"
+import React, { useEffect, useState } from "react";
+import { ColorfulMessage } from "./components/colorfulMessage";
 
 const App = () => {
-  const onClickButton = () => alert();
+  console.log("最初")
+  const [num, setNum] = useState(0);
+  const [flag, setFlag] = useState(false);
+
+  const onClickCountUp = () => {
+    setNum(num + 1);
+  };
+  
+  const onClickSwitchFlag = () => {
+    setFlag(!flag);
+  };
+
+  useEffect(() => {
+    if (num > 0) {
+      if (num % 3 === 0) {
+        flag || setFlag(true);
+      } else {
+        flag && setFlag(false);
+      };
+    }
+  }, [num]);
+
   return (
     <>
       <h1 style={{ color: "red" }}>こんにちは</h1>
-      <p>お元気ですか？</p>
-      <button onClick={onClickButton}>ボタン</button>
+      <ColorfulMessage color="blue">
+        お元気ですか？
+      </ColorfulMessage>
+      <button onClick={onClickCountUp}>カウントアップ</button>
+      <br></br>
+      <button onClick={onClickSwitchFlag}>on/off</button>
+      <p>{num}</p>
+      {flag && <p>てすとお</p> }
     </>
   );
 };
